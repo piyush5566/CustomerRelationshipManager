@@ -1,9 +1,3 @@
-<%--<html>--%>
-<%--<body>--%>
-<%--<h2>Hello World!</h2>--%>
-<%--</body>--%>
-<%--</html>--%>
-
 <%--
   Created by IntelliJ IDEA.
   User: piyushkk
@@ -15,11 +9,11 @@
 <html>
 <head>
     <title>CRM - Customer Relationship Manager</title>
-    <link href="formInput.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/WEB-INF/formInput.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <h1>CRM - Customer Relationship Manager</h1>
-<button onclick="location.href = 'customerForm.jsp';">Add Customer</button>
+<button onclick="location.href = '${pageContext.request.contextPath}/WEB-INF/customerForm.jsp';">Add Customer</button>
 <table>
     <thead>
     <tr>
