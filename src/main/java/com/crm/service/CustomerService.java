@@ -1,6 +1,6 @@
-package com.example.service;
+package com.crm.service;
 
-import com.example.entity.Customer;
+import com.crm.entity.Customer;
 
 import java.util.List;
 

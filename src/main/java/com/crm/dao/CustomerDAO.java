@@ -1,6 +1,6 @@
-package com.example.dao;
+package com.crm.dao;
 
-import com.example.entity.Customer;
+import com.crm.entity.Customer;
 
 import java.util.List;
 

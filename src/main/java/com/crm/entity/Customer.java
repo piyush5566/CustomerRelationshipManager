@@ -1,14 +1,24 @@
-package com.example.entity;
+package com.crm.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+
 @Entity
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GenericGenerator(
+//            name = "sequence-generator",
+//            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+//            parameters = {
+//                    @Parameter(name = "sequence_name", value = "user_sequence"),
+//                    @Parameter(name = "initial_value", value = "1"),
+//                    @Parameter(name = "increment_size", value = "1")
+//            }
+//    )
     private Integer id;
 
     private String firstName;

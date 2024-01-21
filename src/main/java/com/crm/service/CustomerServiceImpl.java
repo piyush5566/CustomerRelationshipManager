@@ -1,7 +1,7 @@
-package com.example.service;
+package com.crm.service;
 
-import com.example.dao.CustomerDAOImpl;
-import com.example.entity.Customer;
+import com.crm.dao.CustomerDAO;
+import com.crm.entity.Customer;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
-    private CustomerDAOImpl customerDAO;
+    private CustomerDAO customerDAO;
 
     @Override
     @Transactional

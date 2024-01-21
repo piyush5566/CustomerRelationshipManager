@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+<!--       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">-->
+    <!-- Add AspectJ autoproxy support for aop-->
+    <aop:aspectj-autoproxy/>
+    <!-- Scans the classpath for annotated components that will be auto-registered as Spring beans -->
+    <context:component-scan base-package="com.crm"/>
+    <mvc:annotation-driven/>
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+
+<!--    &lt;!&ndash; Activates various annotations to be detected in bean classes e.g: @Autowired &ndash;&gt;-->
+<!--    <context:annotation-config />-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/view/" p:suffix=".jsp"/>
+
+    <bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/crm" />
+        <property name="username" value="pickachu" />
+        <property name="password" value="hjdk05cnJDGBkHj$5&amp;df11" />
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="myDataSource"/>
+        <property name="packagesToScan" value="com.crm.entity"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+<!--                <prop key="hbm2ddl.auto">create</prop>-->
+            </props>
+        </property>
+    </bean>
+<!--    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" p:packagesToScan="com.crm.entity" p:dataSource-ref="dataSource">-->
+<!--        <property name="jpaVendorAdapter">-->
+<!--            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">-->
+<!--                <property name="generateDdl" value="true"/>-->
+<!--                <property name="showSql" value="true"/>-->
+<!--            </bean>-->
+<!--        </property>-->
+<!--    </bean>-->
+
+<!--    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" p:entityManagerFactory-ref="entityManagerFactory"/>-->
+    <bean id="myTransactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager" p:sessionFactory-ref="sessionFactory"/>
+
+    <tx:annotation-driven transaction-manager="myTransactionManager"/>
+
+</beans>

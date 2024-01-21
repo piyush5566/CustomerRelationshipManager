@@ -1,9 +1,9 @@
-package com.example.controller;
+package com.crm.controller;
 
-import com.example.Utils.SortUtils;
-import com.example.entity.Customer;
+import com.crm.Utils.SortUtils;
+import com.crm.entity.Customer;
 import org.springframework.ui.Model;
-import com.example.service.CustomerServiceImpl;
+import com.crm.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,14 +14,18 @@ import java.util.List;
 @RequestMapping("/customer")
 public class CustomerController {
     @Autowired
-    private CustomerServiceImpl customerService;
+    private CustomerService customerService;
 
     @GetMapping("/list")
-    public String listCustomer(Model themodel){
+    public String listCustomer(Model themodel, @RequestParam(name = "sort", required = false) String sort){
         List<Customer> theCustomers = null;
-        theCustomers = customerService.getCustomers(SortUtils.LAST_NAME);
-        themodel.addAttribute("customers", customerService.getCustomer(SortUtils.LAST_NAME));
-        return "list-customer";
+        int theSortField = SortUtils.LAST_NAME;
+        if(sort != null){
+            theSortField = Integer.parseInt(sort);
+        }
+        theCustomers = customerService.getCustomers(theSortField);
+        themodel.addAttribute("customers", theCustomers);
+        return "list-customers";
     }
 
     @GetMapping("/showFormForAdd")
